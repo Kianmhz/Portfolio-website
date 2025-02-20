@@ -226,7 +226,7 @@ onUnmounted(() => {
 <style>
 /* Intro section styles */
 .intro-height {
-    min-height: calc(100lvh - 4rem); /* Adjust the height to be the full viewport height minus the navbar height */
+    min-height: calc(100svh - 4rem); /* Adjust the height to be the full viewport height minus the navbar height */
     padding-top: 4rem; /* Adjust the padding to be the navbar height */
 }
 
