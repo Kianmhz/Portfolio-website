@@ -131,7 +131,7 @@ onUnmounted(() => {
                     data-aos-once="true"
                     @click="scrollTo('whatIDo')" id="intro-button"
                     icon="line-md:coffee-loop"
-                    title="EXPLORE"
+                    title="Explore"
                     class="mt-4"
                 />
             </div>
