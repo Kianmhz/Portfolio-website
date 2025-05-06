@@ -18,17 +18,24 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
-      title: "Kianmhz - Personal Website",
+      title: "Kianmhz – Portfolio of Kian Haddad",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        {
-          hid: "description",
-          name: "description",
-          content: "Kianmehr Haddad Zahmatkesh Personal portfolio Website",
-        },
+        { name: "description", content: "Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions." },
+        { property: "og:title", content: "Kianmhz – Portfolio of Kian Haddad" },
+        { property: "og:type", content: "website" },
+        { property: "og:description", content: "Driven by creativity and a passion for innovation, Kianmhz shares a journey of software projects built with care, curiosity, and a pursuit of excellence." },
+        { property: "og:image", content: "/img/preview.webp" },
+        { property: "og:url", content: "https://kianmhz.me" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "keywords", content: "Kianmhz, Kian Haddad, Kianmehr Haddad, software developer, web developer, automation, Nuxt, portfolio" },
       ],
-      link: [{ rel: "icon", href: "/img/logoV2.webp" }],
+      link: [
+        { rel: "icon", href: "/img/logoV2.webp" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+        { rel: "canonical", href: "https://kianmhz.me" },
+      ],
     },
   },
 
