@@ -32,7 +32,6 @@ export default defineNuxtConfig({
         { name: "keywords", content: "Kianmhz, Kian Haddad, Kianmehr Haddad, software developer, web developer, automation, Nuxt, portfolio" },
       ],
       link: [
-        { rel: "icon", href: "/img/logoV2.webp" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         { rel: "canonical", href: "https://kianmhz.me" },
       ],
