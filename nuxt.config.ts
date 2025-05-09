@@ -34,6 +34,14 @@ export default defineNuxtConfig({
       link: [
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         { rel: "canonical", href: "https://kianmhz.me" },
+
+          // Favicons
+        { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16x16.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32x32.png" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" },
+        { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon/android-chrome-192x192.png" },
+        { rel: "icon", type: "image/png", sizes: "512x512", href: "/favicon/android-chrome-512x512.png" },
       ],
     },
   },
