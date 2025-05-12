@@ -1,5 +1,5 @@
 <template>
-  <div class="bgg relative w-full lg:h-[500px] md:h-[400px] sm:h-[300px] z-0 opacity-35">
+  <div class="bgg w-full lg:h-[500px] md:h-[400px] min-h-[300px] z-0 opacity-35">
     <div class="overlay-bottom absolute bottom-[-1px] left-0 w-full h-5/6 bg-gradient-to-t from-black to-transparent">
     </div>
     <div class="overlay-top absolute top-[-1px] left-0 w-full h-5/6 bg-gradient-to-b from-black to-transparent"></div>
