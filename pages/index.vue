@@ -164,7 +164,7 @@ onUnmounted(() => {
     </div>
 
     <UContainer>
-        <div class="flex flex-col justify-center items-center gap-32 my-20">
+        <div class="flex flex-col justify-center items-center gap-32">
             <div class="grid grid-cols-1 text-center gap-y-12 lg:grid-cols-2 lg:gap-x-14 sm:text-left">
                 <div
                     data-aos="fade-up"
@@ -204,7 +204,7 @@ onUnmounted(() => {
         </UContainer>
     </div>
 
-    <div class="sm:my-10" :ref="scroll.projects">
+    <div :ref="scroll.projects">
         <Projects />
     </div>
     
