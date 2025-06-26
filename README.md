@@ -72,9 +72,3 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-## Acknowledgments
-
-- Inspiration for this project came from various sources, notably the beautifully designed website of [Chethan KVS](https://www.chethankvs.design/). His work provided valuable insights into modern web design and user experience.
-- Thanks to all the open-source projects and tools that made this website possible.
-- Special thanks to [Abolix](https://github.com/abolix), [Ærvin](https://github.com/Arvmor) and everyone who provided feedback and suggestions during the development process.
