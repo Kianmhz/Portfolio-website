@@ -1,6 +1,6 @@
 <script setup>
 const cards = ref([
-  { id: 3, title: 'Python Certification', src: '/img/python.jpg', content: 'Certified in Python, I possess a strong foundation in scripting and backend development, showcasing my dedication to continuous learning in this versatile language.'},
+  { id: 3, title: 'Python Certification', src: '/img/python.jpg', content: 'Certified in Python, I possess a strong foundation in scripting and backend development, showcasing my dedication to continuous learning in this versatile language.' },
   { id: 2, title: 'C++ Certification', src: '/img/CPP.jpg', content: 'A reflection to my proficiency in C++, this certification validates my skills in object-oriented programming and data structures.' },
   { id: 1, title: 'Professional Resume', src: '/Resume.pdf', content: 'A blend of foundational knowledge and hands-on projects, showcasing my dedication to software engineering.' }
 ])
@@ -41,22 +41,30 @@ const cards = ref([
 .resume-card#card1 {
   @apply z-[3] sm:translate-x-[15%];
   border-left: 2px solid var(--main-color);
+  background: linear-gradient(to right, color-mix(in srgb, var(--main-color) 8%, transparent), rgba(0, 0, 0, 0.2));
 }
 
 .resume-card#card2 {
   @apply z-[2] brightness-[0.5];
   border-left: 2px solid var(--secondary-color);
+  background: linear-gradient(to right, color-mix(in srgb, var(--secondary-color) 8%, transparent), rgba(0, 0, 0, 0.2));
 }
 
 .resume-card#card3 {
   @apply z-[1] sm:translate-x-[-15%] brightness-[0.5];
   border-left: 2px solid var(--quaternary-color);
+  background: linear-gradient(to right, color-mix(in srgb, var(--quaternary-color) 8%, transparent), rgba(0, 0, 0, 0.2));
 }
 
 /* Hover effects */
 .resume-card#card2:hover,
 .resume-card#card3:hover {
   @apply filter brightness-[1];
+  transform: translateY(-5px);
+}
+
+.resume-card#card3:hover {
+  transform: translateX(-15%) translateY(-5px);
 }
 
 .resume-card#card3:hover~.resume-card#card1,
@@ -70,8 +78,9 @@ const cards = ref([
 
 .resume-card {
   @apply absolute w-[100%] h-[100%] p-6 sm:p-10;
-  background: linear-gradient(to right, rgb(24, 24, 24), rgb(0, 0, 0));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
   transition: 0.3s ease-in-out;
-  box-shadow: -20px 0px 20px rgba(0, 0, 0, 0.7);
 }
 </style>
