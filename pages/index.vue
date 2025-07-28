@@ -1,8 +1,8 @@
 <script setup>
 // SEO Meta - moved to top as per Nuxt convention
 useSeoMeta({
-    title: 'Kianmhz – Portfolio of Kian Haddad',
-    description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
+  title: 'Kianmhz – Portfolio of Kian Haddad',
+  description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
 })
 
 // Template refs - organized by sections
@@ -25,74 +25,74 @@ const { y: scrollY } = useWindowScroll()
 
 // Reactive refs grouped by functionality
 const scrollRefs = computed(() => ({
-    home: homeRef,
-    whatIDo: whatIDoRef,
-    projects: projectsRef,
-    contact: contactRef,
+  home: homeRef,
+  whatIDo: whatIDoRef,
+  projects: projectsRef,
+  contact: contactRef,
 }))
 
 const animationRefs = computed(() => ({
-    leftIntroTitle: leftIntroTitleRef,
-    rightIntroTitle: rightIntroTitleRef,
-    leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
-    rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
-    firstTextSectionThree: firstTextSectionThreeRef,
-    secondTextSectionThree: secondTextSectionThreeRef,
-    thirdTextSectionThree: thirdTextSectionThreeRef
+  leftIntroTitle: leftIntroTitleRef,
+  rightIntroTitle: rightIntroTitleRef,
+  leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
+  rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
+  firstTextSectionThree: firstTextSectionThreeRef,
+  secondTextSectionThree: secondTextSectionThreeRef,
+  thirdTextSectionThree: thirdTextSectionThreeRef
 }))
 
 // Pure animation calculation function using VueUse
 const calculateAnimationRate = (element, startOffset = 0, endOffset = 0, invert = false) => {
-    if (!element?.value || !import.meta.client) return 0
+  if (!element?.value || !import.meta.client) return 0
 
-    const rect = element.value.getBoundingClientRect()
-    const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
-    const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
-    const scrollRange = elementEnd - elementStart
+  const rect = element.value.getBoundingClientRect()
+  const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
+  const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
+  const scrollRange = elementEnd - elementStart
 
-    const rate = (scrollY.value - elementStart) / scrollRange
+  const rate = (scrollY.value - elementStart) / scrollRange
 
-    return invert ? 1 - rate : Math.min(Math.max(rate, 0), 1)
+  return invert ? 1 - rate : Math.min(Math.max(rate, 0), 1)
 }
 
 // Reactive computed animation rates using VueUse scroll position
 const sectionOneRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.leftIntroTitle)
+  calculateAnimationRate(animationRefs.value.leftIntroTitle)
 )
 
 const sectionTwoRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.leftIntroSectionTwoTitle)
+  calculateAnimationRate(animationRefs.value.leftIntroSectionTwoTitle)
 )
 
 const sectionThreeRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.firstTextSectionThree, 0, -200)
+  calculateAnimationRate(animationRefs.value.firstTextSectionThree, 0, -200)
 )
 
 // Computed transform styles for smooth animations
 const transformStyles = computed(() => ({
-    titleOne: `translateX(-${sectionOneRate.value * 25}%)`,
-    titleTwo: `translateX(${sectionOneRate.value * 25}%)`,
-    sectionTwoLeft: `translateX(-${sectionTwoRate.value * 25}%)`,
-    sectionTwoRight: `translateX(${sectionTwoRate.value * 25}%)`
+  titleOne: `translateX(-${sectionOneRate.value * 25}%)`,
+  titleTwo: `translateX(${sectionOneRate.value * 25}%)`,
+  sectionTwoLeft: `translateX(-${sectionTwoRate.value * 25}%)`,
+  sectionTwoRight: `translateX(${sectionTwoRate.value * 25}%)`
 }))
 
 // Computed opacity styles for text animations
 const textOpacities = computed(() => ({
-    first: sectionThreeRate.value >= 0.2 ? 1 : 0,
-    second: sectionThreeRate.value >= 0.4 ? 1 : 0,
-    third: sectionThreeRate.value >= 0.6 ? 1 : 0
+  first: sectionThreeRate.value >= 0.2 ? 1 : 0,
+  second: sectionThreeRate.value >= 0.4 ? 1 : 0,
+  third: sectionThreeRate.value >= 0.6 ? 1 : 0
 }))
 
 // Smooth scroll function with better error handling
 const scrollToSection = (sectionName) => {
-    const targetRef = scrollRefs.value[sectionName]
+  const targetRef = scrollRefs.value[sectionName]
 
-    if (targetRef?.value && import.meta.client) {
-        targetRef.value.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        })
-    }
+  if (targetRef?.value && import.meta.client) {
+    targetRef.value.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
 }
 </script>
 
