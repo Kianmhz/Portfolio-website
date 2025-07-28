@@ -51,7 +51,26 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .nav {
-  @apply text-base transition-all duration-200 opacity-0 hover:text-[--main-color] max-sm:hidden max-sm:first:flex;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  opacity: 0;
+}
+
+.nav:hover {
+  color: var(--main-color);
+}
+
+@media (max-width: 640px) {
+  .nav {
+    display: none;
+  }
+
+  .nav:first-child {
+    display: flex;
+  }
 }
 
 .slide-in {

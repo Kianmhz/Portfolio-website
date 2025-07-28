@@ -1,0 +1,22 @@
+/* Global Animations */
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%
+    }
+
+    100% {
+        background-position: 100% 100%
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

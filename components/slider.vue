@@ -18,6 +18,6 @@
       var(--tertiary-color) 75%,
       var(--main-color) 90%,
       var(--secondary-color) 100%);
-  background-size: 1000% 100%;
+  background-size: var(--gradient-background-size);
 }
 </style>

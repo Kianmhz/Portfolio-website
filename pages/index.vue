@@ -1,17 +1,17 @@
 <script setup>
 // SEO Meta - moved to top as per Nuxt convention
 useSeoMeta({
-  title: 'Kianmhz – Portfolio of Kian Haddad',
-  description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
+    title: 'Kianmhz – Portfolio of Kian Haddad',
+    description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
 })
 
-// Template refs - better organized
+// Template refs - organized by sections
 const homeRef = ref()
 const whatIDoRef = ref()
 const projectsRef = ref()
 const contactRef = ref()
 
-// Animation element refs
+// Animation element refs - organized by sections
 const leftIntroTitleRef = ref()
 const rightIntroTitleRef = ref()
 const leftIntroSectionTwoTitleRef = ref()
@@ -23,89 +23,81 @@ const thirdTextSectionThreeRef = ref()
 // VueUse composables for reactive window and scroll tracking
 const { y: scrollY } = useWindowScroll()
 
-// Animation states
-const animationRates = reactive({
-  sectionOne: 0,
-  sectionTwo: 0,
-  sectionThree: 0
-})
-
-// Computed properties for scroll and elements objects
-const scroll = computed(() => ({
-  home: homeRef,
-  whatIDo: whatIDoRef,
-  projects: projectsRef,
-  contact: contactRef,
+// Reactive refs grouped by functionality
+const scrollRefs = computed(() => ({
+    home: homeRef,
+    whatIDo: whatIDoRef,
+    projects: projectsRef,
+    contact: contactRef,
 }))
 
-const elements = computed(() => ({
-  leftIntroTitle: leftIntroTitleRef,
-  rightIntroTitle: rightIntroTitleRef,
-  leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
-  rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
-  firstTextSectionThree: firstTextSectionThreeRef,
-  secondTextSectionThree: secondTextSectionThreeRef,
-  thirdTextSectionThree: thirdTextSectionThreeRef
+const animationRefs = computed(() => ({
+    leftIntroTitle: leftIntroTitleRef,
+    rightIntroTitle: rightIntroTitleRef,
+    leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
+    rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
+    firstTextSectionThree: firstTextSectionThreeRef,
+    secondTextSectionThree: secondTextSectionThreeRef,
+    thirdTextSectionThree: thirdTextSectionThreeRef
 }))
 
-// Animation calculation function - pure function with VueUse scroll position
-const calculateRate = (element, startOffset = 0, endOffset = 0, invert = false) => {
-  if (!element?.value || !import.meta.client) return 0
+// Pure animation calculation function using VueUse
+const calculateAnimationRate = (element, startOffset = 0, endOffset = 0, invert = false) => {
+    if (!element?.value || !import.meta.client) return 0
 
-  const rect = element.value.getBoundingClientRect()
-  const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
-  const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
-  const scrollRange = elementEnd - elementStart
+    const rect = element.value.getBoundingClientRect()
+    const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
+    const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
+    const scrollRange = elementEnd - elementStart
 
-  let rate = (scrollY.value - elementStart) / scrollRange
+    const rate = (scrollY.value - elementStart) / scrollRange
 
-  if (invert) {
-    rate = 1 - rate
-  }
-
-  return Math.min(Math.max(rate, 0), 1)
+    return invert ? 1 - rate : Math.min(Math.max(rate, 0), 1)
 }
 
-// Reactive computed animation rates that update automatically with scroll
-const sectionOneRate = computed(() => calculateRate(elements.value.leftIntroTitle))
-const sectionTwoRate = computed(() => calculateRate(elements.value.leftIntroSectionTwoTitle))
-const sectionThreeRate = computed(() => calculateRate(elements.value.firstTextSectionThree, 0, -200))
+// Reactive computed animation rates using VueUse scroll position
+const sectionOneRate = computed(() =>
+    calculateAnimationRate(animationRefs.value.leftIntroTitle)
+)
 
-// Update animation rates reactively
-watch([sectionOneRate, sectionTwoRate, sectionThreeRate], ([one, two, three]) => {
-  animationRates.sectionOne = one
-  animationRates.sectionTwo = two
-  animationRates.sectionThree = three
-})
+const sectionTwoRate = computed(() =>
+    calculateAnimationRate(animationRefs.value.leftIntroSectionTwoTitle)
+)
 
-// Computed styles for reactive animations
-const titleOneTransform = computed(() => `translateX(-${animationRates.sectionOne * 25}%)`)
-const titleTwoTransform = computed(() => `translateX(${animationRates.sectionOne * 25}%)`)
-const sectionTwoLeftTransform = computed(() => `translateX(-${animationRates.sectionTwo * 25}%)`)
-const sectionTwoRightTransform = computed(() => `translateX(${animationRates.sectionTwo * 25}%)`)
+const sectionThreeRate = computed(() =>
+    calculateAnimationRate(animationRefs.value.firstTextSectionThree, 0, -200)
+)
 
-const textOpacities = computed(() => ({
-  first: animationRates.sectionThree >= 0.2 ? 1 : 0,
-  second: animationRates.sectionThree >= 0.4 ? 1 : 0,
-  third: animationRates.sectionThree >= 0.6 ? 1 : 0
+// Computed transform styles for smooth animations
+const transformStyles = computed(() => ({
+    titleOne: `translateX(-${sectionOneRate.value * 25}%)`,
+    titleTwo: `translateX(${sectionOneRate.value * 25}%)`,
+    sectionTwoLeft: `translateX(-${sectionTwoRate.value * 25}%)`,
+    sectionTwoRight: `translateX(${sectionTwoRate.value * 25}%)`
 }))
 
-// Smooth scroll function using VueUse helper
-const scrollTo = (refName) => {
-  const currentScroll = scroll.value
-  const sectionRef = currentScroll[refName]
-  if (sectionRef?.value) {
-    // VueUse provides smooth scrolling utilities
-    sectionRef.value.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  }
+// Computed opacity styles for text animations
+const textOpacities = computed(() => ({
+    first: sectionThreeRate.value >= 0.2 ? 1 : 0,
+    second: sectionThreeRate.value >= 0.4 ? 1 : 0,
+    third: sectionThreeRate.value >= 0.6 ? 1 : 0
+}))
+
+// Smooth scroll function with better error handling
+const scrollToSection = (sectionName) => {
+    const targetRef = scrollRefs.value[sectionName]
+
+    if (targetRef?.value && import.meta.client) {
+        targetRef.value.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        })
+    }
 }
 </script>
 
 <template>
-    <BaseNavbar :scroll="scroll" :scrollTo="scrollTo" />
+    <BaseNavbar :scroll="scrollRefs" :scrollTo="scrollToSection" />
 
     <UContainer>
         <div class="intro-height flex flex-col text-center justify-center items-center sm:flex-row sm:text-left"
@@ -125,8 +117,8 @@ const scrollTo = (refName) => {
                     </p>
                 </div>
                 <BaseButton data-aos="fade" data-aos-duration="1000" data-aos-delay="2000" data-aos-easing="ease-in-out"
-                    data-aos-once="true" @click="scrollTo('whatIDo')" id="intro-button" icon="line-md:coffee-loop"
-                    title="Explore" class="mt-4" />
+                    data-aos-once="true" @click="scrollToSection('whatIDo')" id="intro-button"
+                    icon="line-md:coffee-loop" title="Explore" class="mt-4" />
             </div>
             <div class="w-full sm:w-1/2">
                 <NuxtImg provider="cloudflare" src="/img/me.webp" alt="Kianmehr's Image"
@@ -142,9 +134,11 @@ const scrollTo = (refName) => {
             <div class="flex justify-center items-center" ref="whatIDoRef">
                 <div
                     class="will-change-transform absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
-                    <h1 class="title-1" ref="leftIntroTitleRef" :style="{ transform: titleOneTransform }">A Peek Into My
+                    <h1 class="title-1" ref="leftIntroTitleRef" :style="{ transform: transformStyles.titleOne }">A Peek
+                        Into My
                     </h1>
-                    <h1 class="title-2" ref="rightIntroTitleRef" :style="{ transform: titleTwoTransform }">Software
+                    <h1 class="title-2" ref="rightIntroTitleRef" :style="{ transform: transformStyles.titleTwo }">
+                        Software
                         Skills</h1>
                 </div>
             </div>
@@ -170,7 +164,7 @@ const scrollTo = (refName) => {
                     <Skillset />
                 </div>
             </div>
-            <logos />
+            <Logos />
         </div>
     </UContainer>
 
@@ -181,9 +175,9 @@ const scrollTo = (refName) => {
                 <div
                     class="will-change-transform absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
                     <h1 class="title-1" ref="leftIntroSectionTwoTitleRef"
-                        :style="{ transform: sectionTwoLeftTransform }">Discover My</h1>
+                        :style="{ transform: transformStyles.sectionTwoLeft }">Discover My</h1>
                     <h1 class="title-2" ref="rightIntroSectionTwoTitleRef"
-                        :style="{ transform: sectionTwoRightTransform }">Recent Projects</h1>
+                        :style="{ transform: transformStyles.sectionTwoRight }">Recent Projects</h1>
                 </div>
             </div>
         </UContainer>
@@ -210,40 +204,28 @@ const scrollTo = (refName) => {
 </template>
 
 <style>
-/* Intro section styles */
+/* Page-specific styles */
 .intro-height {
-    min-height: calc(100svh - 4rem);
-    /* Adjust the height to be the full viewport height minus the navbar height */
-    padding-top: 4rem;
-    /* Adjust the padding to be the navbar height */
+    min-height: calc(100svh - var(--navbar-height));
+    padding-top: var(--navbar-height);
 }
 
-.intro-dot {
-    animation: gradient 20s linear infinite alternate;
+/* Shared gradient text properties */
+.intro-dot,
+.title-1,
+.title-2,
+.wrap p {
+    animation: var(--gradient-animation);
     background: var(--gradient-color);
-    background-size: 1000% 100%;
+    background-size: var(--gradient-background-size);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* Title section styles */
-.title-1,
+/* Specific override for .title-2 gradient */
 .title-2 {
-    @apply text-4xl md:text-6xl lg:text-8xl font-bold whitespace-nowrap text-transparent;
-    line-height: 1.4;
-}
-
-.title-1 {
-    animation: gradient 20s linear infinite alternate;
-    background: var(--gradient-color);
-    background-size: 1000% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-.title-2 {
-    animation: gradient 20s linear infinite alternate;
+    animation: var(--gradient-animation);
     background: linear-gradient(-45deg,
             var(--main-color) 0%,
             var(--secondary-color) 10%,
@@ -256,18 +238,39 @@ const scrollTo = (refName) => {
             var(--main-color) 80%,
             var(--secondary-color) 90%,
             var(--tertiary-color) 100%);
-    background-size: 1000% 100%;
+    background-size: var(--gradient-background-size);
     background-clip: text;
     -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Wrap section styles */
+/* Title styles */
+.title-1,
+.title-2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+
+    .title-1,
+    .title-2 {
+        font-size: 3.75rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .title-1,
+    .title-2 {
+        font-size: 6rem;
+    }
+}
+
+/* Page-specific animations */
 .wrap p {
-    animation: gradient 20s linear infinite alternate;
-    background: var(--gradient-color);
-    background-size: 1000% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
     transition: opacity 0.5s ease-in-out;
     line-height: 1.625;
 }
