@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { Icon } from "@iconify/vue";
+import { Icon } from '@iconify/vue'
 
 const props = defineProps({
   link: {
@@ -35,7 +35,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-});
+})
 </script>
 
 <style scoped>

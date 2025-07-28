@@ -1,9 +1,9 @@
 <script setup>
 const cards = ref([
-  { id: 3, title: "Python Certification", src: "/img/python.jpg", content: "Certified in Python, I possess a strong foundation in scripting and backend development, showcasing my dedication to continuous learning in this versatile language."},
-  { id: 2, title: "C++ Certification", src: "/img/CPP.jpg", content: "A reflection to my proficiency in C++, this certification validates my skills in object-oriented programming and data structures." },
-  { id: 1, title: "Professional Resume", src: "/Resume.pdf", content: "A blend of foundational knowledge and hands-on projects, showcasing my dedication to software engineering." }
-]);
+  { id: 3, title: 'Python Certification', src: '/img/python.jpg', content: 'Certified in Python, I possess a strong foundation in scripting and backend development, showcasing my dedication to continuous learning in this versatile language.'},
+  { id: 2, title: 'C++ Certification', src: '/img/CPP.jpg', content: 'A reflection to my proficiency in C++, this certification validates my skills in object-oriented programming and data structures.' },
+  { id: 1, title: 'Professional Resume', src: '/Resume.pdf', content: 'A blend of foundational knowledge and hands-on projects, showcasing my dedication to software engineering.' }
+])
 </script>
 
 <template>
