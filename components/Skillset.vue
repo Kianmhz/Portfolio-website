@@ -4,21 +4,21 @@ import { Icon } from '@iconify/vue'
 const skills = ref([
   {
     id: 1,
-    icon: 'fa6-solid:code',
-    title: 'Frontend Development',
-    content: 'Transforming designs into interactive experiences, optimized for speed and scalability.'
+    icon: 'mdi:web',
+    title: 'Full-Stack Development',
+    content: 'Designing and developing seamless web applications from frontend to backend, ensuring responsiveness and clean architecture.'
   },
   {
     id: 2,
-    icon: 'fa6-solid:server',
-    title: 'Backend Development',
-    content: 'Building and maintaining robust server-side logic, ensuring data integrity and seamless integration.'
+    icon: 'mdi:cellphone',
+    title: 'Mobile Development',
+    content: 'Crafting responsive mobile apps with Flutter, designed for smooth performance and consistent experiences across iOS and Android.'
   },
   {
     id: 3,
-    icon: 'fa6-solid:chart-line',
-    title: 'Data Analytics Solutions',
-    content: 'Transforming data into meaningful insights for smarter and informed decision-making.'
+    icon: 'mdi:lightning-bolt',
+    title: 'AI-Powered Integrations',
+    content: 'Enhancing applications with real-time insights using AI models for smarter predictions and decisions.'
   },
   {
     id: 4,
