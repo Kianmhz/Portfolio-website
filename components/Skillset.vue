@@ -29,7 +29,6 @@ const skills = ref([
 ])
 
 // Reactive state for mouse interactions
-const mousePosition = reactive({ x: 0, y: 0 })
 const hoveredSkill = ref(null)
 const skillRefs = ref([])
 

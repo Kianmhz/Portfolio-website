@@ -7,6 +7,46 @@ export default createConfigForNuxt({
   }
 })
   .append({
+    ignores: [
+      // Dependencies
+      'node_modules/',
+
+      // Build outputs
+      '.nuxt/',
+      '.output/',
+      'dist/',
+
+      // Generated files
+      '.nitro/',
+      '.cache/',
+
+      // Static assets
+      'public/',
+      'static/',
+
+      // Temporary files
+      '*.tmp',
+      '*.temp',
+      '*.log'
+    ],
+    languageOptions: {
+      globals: {
+        // Nuxt auto-imports
+        useSeoMeta: 'readonly',
+        useWindowSize: 'readonly',
+        useWindowScroll: 'readonly',
+        useUtils: 'readonly',
+        useNavigation: 'readonly',
+        // Vue auto-imports
+        ref: 'readonly',
+        reactive: 'readonly',
+        computed: 'readonly',
+        watch: 'readonly',
+        onMounted: 'readonly',
+        onBeforeUnmount: 'readonly',
+        nextTick: 'readonly'
+      }
+    },
     rules: {
       // Vue/Nuxt specific rules
       'vue/multi-word-component-names': 'off',
@@ -18,7 +58,10 @@ export default createConfigForNuxt({
       // General JavaScript rules
       'no-console': 'warn',
       'no-debugger': 'warn',
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^(props|emit|slots|attrs)$'
+      }],
       'prefer-const': 'error',
 
       // Code style - be more flexible

@@ -16,7 +16,7 @@ export function useNavigation() {
 
   // Watch scroll position changes reactively
   watch(scrollY, (currentScrollPosition) => {
-    if (!process.client) return
+    if (!import.meta.client) return
 
     if (currentScrollPosition > maximumScrollPosition.value + SCROLL_THRESHOLD) {
       if (isScrollingUp.value) {
