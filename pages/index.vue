@@ -1,91 +1,86 @@
 <script setup>
-// Use Nuxt's built-in SEO composable
+// SEO Meta - moved to top as per Nuxt convention
 useSeoMeta({
-  title: 'Kianmhz – Portfolio of Kian Haddad',
-  description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
+    title: 'Kianmhz – Portfolio of Kian Haddad',
+    description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
 })
 
-// Template refs for scrolling
-const homeRef = ref(null)
-const whatIDoRef = ref(null)
-const projectsRef = ref(null)
-const contactRef = ref(null)
+// Template refs - better organized
+const homeRef = ref()
+const whatIDoRef = ref()
+const projectsRef = ref()
+const contactRef = ref()
 
-// Template refs for animations
-const leftIntroTitleRef = ref(null)
-const rightIntroTitleRef = ref(null)
-const leftIntroSectionTwoTitleRef = ref(null)
-const rightIntroSectionTwoTitleRef = ref(null)
-const firstTextSectionThreeRef = ref(null)
-const secondTextSectionThreeRef = ref(null)
-const thirdTextSectionThreeRef = ref(null)
+// Animation element refs
+const leftIntroTitleRef = ref()
+const rightIntroTitleRef = ref()
+const leftIntroSectionTwoTitleRef = ref()
+const rightIntroSectionTwoTitleRef = ref()
+const firstTextSectionThreeRef = ref()
+const secondTextSectionThreeRef = ref()
+const thirdTextSectionThreeRef = ref()
 
-// Create scroll object for navbar
-const scroll = {
-  home: homeRef,
-  whatIDo: whatIDoRef,
-  projects: projectsRef,
-  contact: contactRef,
-}
+// VueUse composables for reactive window and scroll tracking
+const { width: windowWidth, height: windowHeight } = useWindowSize()
+const { y: scrollY } = useWindowScroll()
 
-// Create elements object for animations
-const elements = {
-  leftIntroTitle: leftIntroTitleRef,
-  rightIntroTitle: rightIntroTitleRef,
-  leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
-  rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
-  firstTextSectionThree: firstTextSectionThreeRef,
-  secondTextSectionThree: secondTextSectionThreeRef,
-  thirdTextSectionThree: thirdTextSectionThreeRef
-}
-
-// Reactive state
-const rafId = ref(null)
-const windowDimensions = reactive({
-  width: 0,
-  height: 0
-})
+// VueUse throttle for performance optimization
+const { throttle } = useUtils()
 
 // Animation states
 const animationRates = reactive({
-  sectionOne: 0,
-  sectionTwo: 0,
-  sectionThree: 0
+    sectionOne: 0,
+    sectionTwo: 0,
+    sectionThree: 0
 })
 
+// Computed properties for scroll and elements objects
+const scroll = computed(() => ({
+    home: homeRef,
+    whatIDo: whatIDoRef,
+    projects: projectsRef,
+    contact: contactRef,
+}))
+
+const elements = computed(() => ({
+    leftIntroTitle: leftIntroTitleRef,
+    rightIntroTitle: rightIntroTitleRef,
+    leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
+    rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
+    firstTextSectionThree: firstTextSectionThreeRef,
+    secondTextSectionThree: secondTextSectionThreeRef,
+    thirdTextSectionThree: thirdTextSectionThreeRef
+}))
+
+// Animation calculation function - pure function with VueUse scroll position
 const calculateRate = (element, startOffset = 0, endOffset = 0, invert = false) => {
-  if (!element?.value) return 0
+    if (!element?.value || !process.client) return 0
 
-  const rect = element.value.getBoundingClientRect()
-  const elementStart = rect.top + window.scrollY - window.innerHeight + startOffset
-  const elementEnd = rect.top + window.scrollY + element.value.offsetHeight + endOffset
-  const scrollRange = elementEnd - elementStart
+    const rect = element.value.getBoundingClientRect()
+    const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
+    const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
+    const scrollRange = elementEnd - elementStart
 
-  let rate = (window.scrollY - elementStart) / scrollRange
+    let rate = (scrollY.value - elementStart) / scrollRange
 
-  if (invert) {
-    rate = 1 - rate
-  }
+    if (invert) {
+        rate = 1 - rate
+    }
 
-  return Math.min(Math.max(rate, 0), 1)
+    return Math.min(Math.max(rate, 0), 1)
 }
 
-const updateAnimations = () => {
-  if (rafId.value) {
-    cancelAnimationFrame(rafId.value)
-  }
+// Reactive computed animation rates that update automatically with scroll
+const sectionOneRate = computed(() => calculateRate(elements.value.leftIntroTitle))
+const sectionTwoRate = computed(() => calculateRate(elements.value.leftIntroSectionTwoTitle))
+const sectionThreeRate = computed(() => calculateRate(elements.value.firstTextSectionThree, 0, -200))
 
-  rafId.value = requestAnimationFrame(() => {
-    // Calculate rates
-    animationRates.sectionOne = calculateRate(elements.leftIntroTitle)
-    animationRates.sectionTwo = calculateRate(elements.leftIntroSectionTwoTitle)
-    animationRates.sectionThree = calculateRate(elements.firstTextSectionThree, 0, -200)
-
-    // Debug logging
-    console.log('Animation rates:', animationRates)
-    console.log('Elements:', elements)
-  })
-}
+// Update animation rates reactively
+watch([sectionOneRate, sectionTwoRate, sectionThreeRate], ([one, two, three]) => {
+    animationRates.sectionOne = one
+    animationRates.sectionTwo = two
+    animationRates.sectionThree = three
+})
 
 // Computed styles for reactive animations
 const titleOneTransform = computed(() => `translateX(-${animationRates.sectionOne * 25}%)`)
@@ -94,56 +89,23 @@ const sectionTwoLeftTransform = computed(() => `translateX(-${animationRates.sec
 const sectionTwoRightTransform = computed(() => `translateX(${animationRates.sectionTwo * 25}%)`)
 
 const textOpacities = computed(() => ({
-  first: animationRates.sectionThree >= 0.2 ? 1 : 0,
-  second: animationRates.sectionThree >= 0.4 ? 1 : 0,
-  third: animationRates.sectionThree >= 0.6 ? 1 : 0
+    first: animationRates.sectionThree >= 0.2 ? 1 : 0,
+    second: animationRates.sectionThree >= 0.4 ? 1 : 0,
+    third: animationRates.sectionThree >= 0.6 ? 1 : 0
 }))
 
-// Smooth scroll function
+// Smooth scroll function using VueUse helper
 const scrollTo = (refName) => {
-  const sectionRef = scroll[refName]
-  if (sectionRef?.value) {
-    sectionRef.value.scrollIntoView({ behavior: 'smooth' })
-  }
+    const currentScroll = scroll.value
+    const sectionRef = currentScroll[refName]
+    if (sectionRef?.value) {
+        // VueUse provides smooth scrolling utilities
+        sectionRef.value.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        })
+    }
 }
-
-// Handle resize with debouncing
-const { throttle } = useUtils()
-const handleResize = throttle(() => {
-  const newWidth = window.innerWidth
-  const newHeight = window.innerHeight
-
-  if (newWidth !== windowDimensions.width) {
-    windowDimensions.width = newWidth
-    windowDimensions.height = newHeight
-    updateAnimations()
-  }
-}, 100)
-
-// Lifecycle hooks
-onMounted(() => {
-  if (typeof window !== 'undefined') {
-    windowDimensions.width = window.innerWidth
-    windowDimensions.height = window.innerHeight
-
-    window.addEventListener('scroll', updateAnimations, { passive: true })
-    window.addEventListener('resize', handleResize, { passive: true })
-
-    // Initial calculation
-    updateAnimations()
-  }
-})
-
-onBeforeUnmount(() => {
-  if (rafId.value) {
-    cancelAnimationFrame(rafId.value)
-  }
-
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('scroll', updateAnimations)
-    window.removeEventListener('resize', handleResize)
-  }
-})
 </script>
 
 <template>

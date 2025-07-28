@@ -1,17 +1,22 @@
 /**
  * Navigation composable for scroll detection and navbar behavior
  */
+/**
+ * Navigation composable for scroll detection and navbar behavior using VueUse
+ */
 export function useNavigation() {
   const SCROLL_THRESHOLD = 100
-  const THROTTLE_DELAY = 100
 
   const maximumScrollPosition = ref(0)
   const isScrollingUp = ref(true)
-  const lastScrollTime = ref(Date.now())
   const loaded = ref(false)
 
-  const scrollDetector = () => {
-    const currentScrollPosition = window.scrollY
+  // Use VueUse reactive scroll position
+  const { y: scrollY } = useWindowScroll()
+
+  // Watch scroll position changes reactively
+  watch(scrollY, (currentScrollPosition) => {
+    if (!process.client) return
 
     if (currentScrollPosition > maximumScrollPosition.value + SCROLL_THRESHOLD) {
       if (isScrollingUp.value) {
@@ -24,26 +29,15 @@ export function useNavigation() {
       }
       maximumScrollPosition.value = currentScrollPosition
     }
-  }
+  })
 
-  const scrollHandler = () => {
-    const now = Date.now()
-    if (now - lastScrollTime.value > THROTTLE_DELAY) {
-      scrollDetector()
-      lastScrollTime.value = now
-    }
-  }
-
+  // No longer need manual event listeners - VueUse handles this
   const setupScrollListener = () => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', scrollHandler, { passive: true })
-    }
+    // VueUse handles scroll tracking automatically
   }
 
   const cleanupScrollListener = () => {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('scroll', scrollHandler)
-    }
+    // VueUse handles cleanup automatically
   }
 
   const setLoaded = (delay = 2000) => {
@@ -53,8 +47,8 @@ export function useNavigation() {
   }
 
   return {
-    isScrollingUp: readonly(isScrollingUp),
-    loaded: readonly(loaded),
+    isScrollingUp,
+    loaded,
     setupScrollListener,
     cleanupScrollListener,
     setLoaded
