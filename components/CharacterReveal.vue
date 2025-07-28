@@ -37,6 +37,9 @@ const containerRef = ref()
 const textRefs = ref([])
 const { y: scrollY } = useWindowScroll()
 
+// Track maximum revealed characters to prevent fade-out
+const maxRevealedChars = ref(props.texts.map(() => 0))
+
 // Animation calculation function
 const calculateAnimationRate = (element, startOffset = 0, endOffset = 0) => {
     if (!element || !import.meta.client) return 0
@@ -51,7 +54,7 @@ const calculateAnimationRate = (element, startOffset = 0, endOffset = 0) => {
     return Math.min(Math.max(rate, 0), 1)
 }
 
-// Computed character reveal logic
+// Computed character reveal logic with permanent reveal
 const revealedChars = computed(() => {
     if (!textRefs.value[0]) return props.texts.map(() => 0)
 
@@ -59,23 +62,30 @@ const revealedChars = computed(() => {
     const totalChars = props.texts.reduce((sum, text) => sum + text.length, 0)
     const totalRevealedChars = Math.floor(totalProgress * totalChars)
 
-    const result = []
+    const currentResult = []
     let remainingChars = totalRevealedChars
 
     for (let i = 0; i < props.texts.length; i++) {
         const textLength = props.texts[i].length
         if (remainingChars <= 0) {
-            result.push(0)
+            currentResult.push(0)
         } else if (remainingChars >= textLength) {
-            result.push(textLength)
+            currentResult.push(textLength)
             remainingChars -= textLength
         } else {
-            result.push(remainingChars)
+            currentResult.push(remainingChars)
             remainingChars = 0
         }
     }
 
-    return result
+    // Update max revealed chars to never go backwards
+    for (let i = 0; i < currentResult.length; i++) {
+        if (currentResult[i] > maxRevealedChars.value[i]) {
+            maxRevealedChars.value[i] = currentResult[i]
+        }
+    }
+
+    return maxRevealedChars.value
 })
 
 // Expose refs for parent component if needed
@@ -97,21 +107,10 @@ defineExpose({
     overflow: hidden;
     transition: opacity 0.5s ease-in-out;
     line-height: 1.625;
-    animation: var(--gradient-animation);
-    background: var(--gradient-color);
-    background-size: var(--gradient-background-size);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--main-color);
 }
 
 .revealed-chars {
-    background: var(--gradient-color);
-    background-size: var(--gradient-background-size);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: var(--gradient-animation);
     position: relative;
 }
 
@@ -125,29 +124,42 @@ defineExpose({
 .char-animate {
     display: inline-block;
     opacity: 0;
-    animation: charFadeIn 0.6s ease-out forwards;
-    background: var(--gradient-color);
-    background-size: var(--gradient-background-size);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--main-color);
+    animation: charColorIn 0.6s ease-out forwards;
 }
 
-@keyframes charFadeIn {
+@keyframes charColorIn {
     0% {
         opacity: 0;
+        color: transparent;
         transform: translateY(20px) scale(0.8);
         filter: blur(2px);
     }
 
+    25% {
+        opacity: 0.3;
+        color: var(--tertiary-color);
+        transform: translateY(15px) scale(0.85);
+        filter: blur(1.5px);
+    }
+
     50% {
         opacity: 0.6;
+        color: var(--secondary-color);
         transform: translateY(10px) scale(0.9);
         filter: blur(1px);
     }
 
+    75% {
+        opacity: 0.8;
+        color: var(--quaternary-color);
+        transform: translateY(5px) scale(0.95);
+        filter: blur(0.5px);
+    }
+
     100% {
         opacity: 1;
+        color: var(--main-color);
         transform: translateY(0) scale(1);
         filter: blur(0);
     }
