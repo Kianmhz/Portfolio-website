@@ -59,6 +59,17 @@ export default defineNuxtConfig({
       rollupOptions: {
         external: ['crypto']
       }
+    },
+    resolve: {
+      alias: {
+        crypto: 'crypto'
+      }
+    }
+  },
+
+  nitro: {
+    experimental: {
+      wasm: true
     }
   },
 

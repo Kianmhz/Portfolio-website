@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "start": "nuxt start",
+    "deploy": "npm ci && npm run build && npm run start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -31,7 +32,7 @@
     "@nuxtjs/tailwindcss": "^6.8.0",
     "autoprefixer": "^10.4.15",
     "eslint": "^9.32.0",
-    "nuxt": "^3.14.159",
+    "nuxt": "^3.18.0",
     "nuxt-aos": "^1.2.5",
     "postcss": "^8.4.28",
     "stylelint": "^16.22.0",
@@ -40,7 +41,8 @@
     "tailwindcss": "^3.3.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0 <24.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
