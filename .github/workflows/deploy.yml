@@ -21,4 +21,9 @@ jobs:
       - name: Deploy to Server
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
-        run: ssh -o StrictHostKeyChecking=no kianmhz@${{ env.SERVER_IP }} 'bash /var/www/kianmhz.me/deploy.sh'
+        run: |
+          ssh -o ServerAliveInterval=60 \
+              -o ServerAliveCountMax=10 \
+              -o StrictHostKeyChecking=no \
+              kianmhz@${{ env.SERVER_IP }} 'bash /var/www/kianmhz.me/deploy.sh'
+
