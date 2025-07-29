@@ -1,9 +1,9 @@
 <script setup>
 const contacts = ref([
-  { title: "Linkedin", link: "https://www.linkedin.com/in/kianmhz/", description: "Connect with me professionally and let's build bridges.", icon: 'jam:linkedin-square' },
-  { title: "Email", link: "mailto:haddad.kianm@gmail.com", description: "Reach out directly for inquiries, collaborations, or just to say hi.", icon: 'material-symbols:mail-outline' },
-  { title: "GitHub", link: "https://github.com/Kianmhz", description: "Explore my projects, repositories, and contributions.", icon: 'codicon:github' }
-]);
+  { title: 'Linkedin', link: 'https://www.linkedin.com/in/kianmhz/', description: 'Connect with me professionally and let\'s build bridges.', icon: 'jam:linkedin-square' },
+  { title: 'Email', link: 'mailto:haddad.kianm@gmail.com', description: 'Reach out directly for inquiries, collaborations, or just to say hi.', icon: 'material-symbols:mail-outline' },
+  { title: 'GitHub', link: 'https://github.com/Kianmhz', description: 'Explore my projects, repositories, and contributions.', icon: 'codicon:github' }
+])
 </script>
 
 <template>

@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/fonts", "@nuxt/ui", 'nuxt-swiper', "nuxt-aos", "@nuxt/image"],
+  modules: ["@nuxt/fonts", "@nuxt/ui", 'nuxt-swiper', "nuxt-aos", "@nuxt/image", "@vueuse/nuxt"],
   devtools: { enabled: true },
+  css: ['~/assets/css/main.css'],
   image: {
     cloudflare: {
       baseURL: 'https://kianmhz.me' // Replace with your domain

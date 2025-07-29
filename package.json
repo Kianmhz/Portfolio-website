@@ -1,13 +1,16 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@iconify-json/codicon": "^1.1.50",
@@ -17,7 +20,9 @@
     "@iconify-json/line-md": "^1.1.38",
     "@iconify-json/material-symbols": "^1.1.84",
     "@iconify-json/mingcute": "^1.2.0",
+    "@iconify-json/vscode-icons": "^1.2.23",
     "@nuxt/devtools": "latest",
+    "@nuxt/eslint-config": "^1.7.1",
     "@nuxt/fonts": "^0.11.2",
     "@nuxt/icon": "^1.0.0",
     "@nuxt/image": "^1.7.0",
@@ -25,13 +30,19 @@
     "@nuxtjs/seo": "^2.0.0-rc.8",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "autoprefixer": "^10.4.15",
-    "nuxt": "^3.12.3",
+    "eslint": "^9.32.0",
+    "nuxt": "^4.0.1",
     "nuxt-aos": "^1.2.5",
     "postcss": "^8.4.28",
+    "stylelint": "^16.22.0",
+    "stylelint-config-standard": "^38.0.0",
+    "stylelint-config-tailwindcss": "^1.0.0",
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
+    "@vueuse/core": "^13.5.0",
+    "@vueuse/nuxt": "^13.5.0",
     "nuxt-swiper": "^1.2.2",
     "vue-touch": "^2.0.0-beta.4"
   }

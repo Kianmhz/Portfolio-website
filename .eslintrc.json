@@ -1,0 +1,38 @@
+{
+  "extends": ["@nuxt/eslint-config"],
+  "rules": {
+    // Vue/Nuxt specific rules
+    "vue/multi-word-component-names": "off",
+    "vue/no-multiple-template-root": "off",
+    
+    // General JavaScript rules
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-unused-vars": "warn",
+    "prefer-const": "error",
+    
+    // Code style
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    
+    // Best practices
+    "no-var": "error",
+    "no-duplicate-imports": "error",
+    "no-unreachable": "error",
+    
+    // Vue specific best practices
+    "vue/require-v-for-key": "error",
+    "vue/no-unused-components": "warn",
+    "vue/require-prop-types": "warn",
+    "vue/component-definition-name-casing": ["error", "PascalCase"],
+    "vue/html-self-closing": ["error", {
+      "html": {
+        "void": "always",
+        "normal": "always",
+        "component": "always"
+      }
+    }]
+  }
+}

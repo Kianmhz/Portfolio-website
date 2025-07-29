@@ -20,12 +20,13 @@
 </template>
 
 <script setup>
-import { Icon } from "@iconify/vue";
+import { Icon } from '@iconify/vue'
 
 const props = defineProps({
   link: {
     type: String,
     required: false,
+    default: '',
   },
   icon: {
     type: String,
@@ -35,12 +36,24 @@ const props = defineProps({
     type: String,
     required: true,
   },
-});
+})
 </script>
 
 <style scoped>
 .contact-button {
-  @apply flex items-center max-sm:w-full;
+  @apply flex items-center max-sm:w-full relative;
+}
+
+.contact-button::after {
+  content: "";
+  transition: 0.3s ease-in-out;
+  width: 44px;
+  /* Width of icon container (p-2.5 * 2 + icon size) */
+  @apply absolute h-[2px] bg-[--main-color] bottom-0 left-0;
+}
+
+.contact-button:hover::after {
+  @apply w-full;
 }
 
 .button-icon {
@@ -56,21 +69,5 @@ const props = defineProps({
 .contact-button:hover .button-text {
   transform: translateX(-10px);
   @apply opacity-100 text-white;
-}
-
-.contact-button:hover .button-text::before {
-  @apply w-full;
-}
-
-.button-icon::before,
-.button-text::before {
-  content: "";
-  transition: 0.3s ease-in-out;
-  width: 0px;
-  @apply absolute h-[2px] bg-[--main-color] bottom-0 left-0;
-}
-
-.button-icon::before {
-  @apply w-full;
 }
 </style>

@@ -1,66 +1,76 @@
 <script setup>
 const props = defineProps({
-  scroll: Object,
-  scrollTo: Function,
-});
-
-const SCROLL_THRESHOLD = 100;
-const maximumScrollPosition = ref(0);
-const isScrollingUp = ref(true);
-const lastScrollTime = ref(Date.now());
-const loaded = ref(false);
-
-const scrollDetector = () => {
-  const currentScrollPosition = window.scrollY;
-  if (currentScrollPosition > maximumScrollPosition.value + SCROLL_THRESHOLD) {
-    if (isScrollingUp.value) isScrollingUp.value = false;
-    maximumScrollPosition.value = currentScrollPosition;
-  } else if (currentScrollPosition < maximumScrollPosition.value - SCROLL_THRESHOLD) {
-    if (!isScrollingUp.value) isScrollingUp.value = true;
-    maximumScrollPosition.value = currentScrollPosition;
+  scroll: {
+    type: Object,
+    required: true
+  },
+  scrollTo: {
+    type: Function,
+    required: true
   }
-};
+})
 
-const scrollHandler = () => {
-  const now = Date.now();
-  if (now - lastScrollTime.value > 100) {
-    scrollDetector();
-    lastScrollTime.value = now;
-  }
-};
+// Use navigation composable
+const { isScrollingUp, loaded, setupScrollListener, cleanupScrollListener, setLoaded } = useNavigation()
 
 onMounted(() => {
-  setTimeout(() => loaded.value = true, 2000);
-  window.addEventListener('scroll', scrollHandler);
-});
+  setupScrollListener()
+  setLoaded()
+})
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', scrollHandler);
-});
+onBeforeUnmount(() => {
+  cleanupScrollListener()
+})
 </script>
 
 <template>
-  <transition name="navbar-fade">
-    <div v-show="isScrollingUp" class="fixed top-0 left-0 right-0 z-[100] bg-gradient-to-b from-black to-transparent">
+  <Transition name="navbar-fade">
+    <nav v-show="isScrollingUp" class="fixed top-0 left-0 right-0 z-[100] bg-gradient-to-b from-black to-transparent"
+      role="navigation" aria-label="Main navigation">
       <UContainer>
         <div class="flex justify-between items-center h-16" :class="{ 'no-slide': loaded }">
-          <button @click="scrollTo('home')" class="nav slide-in" aria-label="Go to Homepage">
+          <button @click="scrollTo('home')" class="nav slide-in" aria-label="Go to Homepage" type="button">
             <div class="flex justify-center items-center w-full">
               <Sign class="sign" />
             </div>
           </button>
-          <button @click="scrollTo('whatIDo')" class="nav slide-in delay-1">What I do</button>
-          <button @click="scrollTo('projects')" class="nav slide-in delay-2">Projects</button>
-          <button @click="scrollTo('contact')" class="nav slide-in delay-3">Contacts</button>
+          <button @click="scrollTo('whatIDo')" class="nav slide-in delay-1" type="button">
+            What I do
+          </button>
+          <button @click="scrollTo('projects')" class="nav slide-in delay-2" type="button">
+            Projects
+          </button>
+          <button @click="scrollTo('contact')" class="nav slide-in delay-3" type="button">
+            Contacts
+          </button>
         </div>
       </UContainer>
-    </div>
-  </transition>
+    </nav>
+  </Transition>
 </template>
 
 <style scoped>
 .nav {
-  @apply text-base transition-all duration-200 opacity-0 hover:text-[--main-color] max-sm:hidden max-sm:first:flex;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  opacity: 0;
+}
+
+.nav:hover {
+  color: var(--main-color);
+}
+
+@media (max-width: 640px) {
+  .nav {
+    display: none;
+  }
+
+  .nav:first-child {
+    display: flex;
+  }
 }
 
 .slide-in {
