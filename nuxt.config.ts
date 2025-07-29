@@ -48,5 +48,19 @@ export default defineNuxtConfig({
     },
   },
 
+  vite: {
+    define: {
+      global: 'globalThis'
+    },
+    optimizeDeps: {
+      include: ['crypto']
+    },
+    build: {
+      rollupOptions: {
+        external: ['crypto']
+      }
+    }
+  },
+
   compatibilityDate: "2024-07-10",
 });
