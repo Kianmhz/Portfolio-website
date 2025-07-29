@@ -14,25 +14,21 @@ const projects = ref([
     icon: 'mingcute:telegram-fill',
   },
   {
-    title: 'Instagram Bot',
-    description: `Utilizing Python Playwright library, this bot is designed to streamline various Instagram tasks. With
-                  capabilities like logging in, posting photos and videos, as well as managing follow/unfollow
-                  actions, it's built to run in a continuous loop, ensuring sustained activity and automation.`,
-    link: 'https://github.com/Kianmhz/IG-bot',
-    alt: 'ig logo',
-    canvasImage: '/img/ig.png',
-    ticon: 'Github',
-    icon: 'codicon:github',
+    title: 'Synps',
+    description: `A unified Web3 intelligence terminal that aggregates and analyzes blockchain data, social sentiment, and market signals in real-time. Designed to reduce noise and surface alpha, Synps leverages AI to assess live crypto news, trending projects, investment rounds, and wallet behavior.
+From radar-style dashboards to predictive confluence detectors, each module transforms raw data into actionable insights — creating a powerful assistant for informed, real-time decision-making across the crypto ecosystem.`,
+    link: 'https://synps.app/',
+    alt: 'Synps logo',
+    canvasImage: '/img/synps.png',
+    ticon: 'Website',
+    icon: 'mdi:web',
   },
   {
-    title: 'X / Twitter Bot',
-    description: `Engineered with Python Playwright library, Twitter Bot is equipped to handle tasks like
-                  logging in, posting multimedia content, and following or
-                  unfollowing users. Designed for long-term operations, it runs in an infinite loop, ensuring
-                  consistent and reliable automation.`,
-    link: 'https://github.com/Kianmhz/X-bot',
+    title: 'FLOW Field Project',
+    description: `A visual exploration of particle behavior guided by directional vector fields. Built to experiment with motion aesthetics and flow dynamics, FLOW utilizes smooth field functions to simulate natural movement across canvas space. The project transforms static shapes into animated, living visuals — creating a foundation for generative art and real-time interactions.`,
+    link: 'https://github.com/Kianmhz/Flow-fields-js',
     alt: 'X logo',
-    canvasImage: '/img/x.png',
+    canvasImage: '/img/flow.png',
     ticon: 'Github',
     icon: 'codicon:github',
   },
