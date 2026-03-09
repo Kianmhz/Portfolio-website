@@ -141,11 +141,12 @@ const scrollToSection = (sectionName) => {
                     class="flex flex-col justify-center">
                     <h1 class="text-3xl sm:text-4xl mb-4 font-bold">What I Do</h1>
                     <p class="text-md sm:text-lg text-[--secondary-text-color]">
-                        Creating digital experiences through a fusion of sleek design and seamless functionality. From
-                        the
-                        first click to the lasting impression, I blend aesthetics with performance, making every
-                        interaction
-                        matter.
+                        I build intelligent software systems that combine modern web development with machine learning
+                        and automation.
+                        My work ranges from full-stack applications and mobile experiences to experimental AI systems
+                        such as federated learning and quantum-inspired decision engines.
+                        I focus on writing clean, efficient code and designing systems that solve real problems while
+                        remaining scalable and maintainable.
                     </p>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-easing="ease-in-out"

@@ -6,25 +6,25 @@ const skills = ref([
     id: 1,
     icon: 'mdi:web',
     title: 'Full-Stack Development',
-    content: 'Designing and developing seamless web applications from frontend to backend, ensuring responsiveness and clean architecture.'
+    content: 'Building modern web applications from frontend interfaces to backend services. I focus on performance, architecture, and scalable APIs.'
   },
   {
     id: 2,
     icon: 'mdi:cellphone',
     title: 'Mobile Development',
-    content: 'Crafting responsive mobile apps with Flutter, designed for smooth performance and consistent experiences across iOS and Android.'
+    content: 'Developing cross-platform mobile applications with Flutter, integrating real-time rendering, camera pipelines, and responsive UI systems.'
   },
   {
     id: 3,
     icon: 'mdi:lightning-bolt',
-    title: 'AI-Powered Integrations',
-    content: 'Enhancing applications with real-time insights using AI models for smarter predictions and decisions.'
+    title: 'AI-Powered Systems',
+    content: 'Designing machine learning systems for real-world problems, including computer vision, distributed learning, and intelligent decision pipelines.'
   },
   {
     id: 4,
     icon: 'iconamoon:synchronize-bold',
     title: 'Automation',
-    content: 'Designing scripts and bots to automate repetitive tasks, streamlining processes for efficiency.'
+    content: 'Building automation tools and data pipelines with Python to streamline workflows, collect insights, and eliminate repetitive processes.'
   }
 ])
 
