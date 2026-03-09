@@ -1,74 +1,68 @@
-# Kianmhz.me - Personal Portfolio
+# kianmhz.me — Personal Portfolio
 
-Welcome to the source code repository for kianmhz.me, a personal portfolio website designed to showcase my skills and projects as a software engineer. This website is built using Nuxt 3, leveraging the power of Vue.js for a dynamic and responsive user experience. Aimed at potential employers, fellow developers, and anyone interested in my work, this site serves as a comprehensive showcase of my technical abilities and project involvements.
+Source code for [kianmhz.me](https://kianmhz.me), a personal portfolio built with **Nuxt 4** and **Vue 3**. Designed to showcase projects, skills, and experience as a software developer.
 
-Utilizing modern web development practices, kianmhz.me is not just a portfolio but also a testament to my commitment to clean, efficient, and scalable code. Whether you're here to explore my work or to contribute to this project, I hope you find this repository both informative and inspiring.
+## Tech Stack
 
-# Nuxt 3 Minimal Starter
+| Layer | Technology |
+|---|---|
+| Framework | [Nuxt 4](https://nuxt.com) / [Vue 3](https://vuejs.org) |
+| Styling | [Tailwind CSS v3](https://tailwindcss.com) · [Nuxt UI](https://ui.nuxt.com) |
+| Fonts | [Nuxt Fonts](https://fonts.nuxt.com) — Oxygen (Google) |
+| Icons | [@iconify/vue](https://iconify.design) |
+| Images | [Nuxt Image](https://image.nuxt.com) — Cloudflare provider |
+| Animations | [AOS](https://michalsnik.github.io/aos/) · [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) |
+| Carousel | [nuxt-swiper](https://github.com/cpreston321/nuxt-swiper) |
+| Utilities | [VueUse](https://vueuse.org) |
+| Linting | ESLint ([nuxt/eslint-config](https://github.com/nuxt/eslint-config)) |
 
-Before you begin, ensure you have [Node.js](https://nodejs.org/) installed on your machine.
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Project Structure
 
-## Setup
+```
+pages/
+  index.vue           # Single-page layout with all sections
+components/
+  base/
+    Navbar.vue        # Scroll-aware fixed navbar with slide-in animation
+    Footer.vue        # Minimal branded footer
+    Button.vue        # Animated icon + label button
+  Skillset.vue        # Mouse-proximity border effect skill cards
+  Logos.vue           # Infinite marquee of tech stack icons
+  Projects.vue        # Swiper carousel with offscreen canvas particle effect
+  Cards.vue           # Stacked hover-reveal resume cards
+  CharacterReveal.vue # Intersection observer line-by-line text reveal
+  Contact.vue         # Contact links grid
+  Slider.vue          # Holographic animated section divider
+  Sign.vue            # SVG signature logo
+composables/
+  useNavigation.js    # Scroll direction detection for navbar hide/show
+  useUtils.js         # throttle, debounce, clamp, lerp helpers
+assets/css/
+  main.css            # Global keyframe animations
+```
 
-Make sure to install the dependencies:
+## Getting Started
+
+**Prerequisites:** [Node.js](https://nodejs.org/) v18+
 
 ```bash
-# npm
+# Install dependencies
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+# Start development server at http://localhost:3000
 npm run dev
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+# Build for production
 npm run build
 
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
+# Preview production build
 npm run preview
 
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
+# Lint
+npm run lint
+npm run lint:fix
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [`LICENSE`](./LICENSE) for details.
