@@ -99,7 +99,7 @@ onMounted(() => {
       ({ activeIndex }) => initializeCanvases(activeIndex)
     ">
     <SwiperSlide v-for="(project, index) in projects" :key="index">
-      <div class="py-16 lg:py-20">
+      <div class="pt-16 lg:py-20">
         <UContainer>
           <div
             class="grid grid-cols-1 justify-center items-center gap-10 sm:gap-20 text-center sm:grid-cols-2 sm:text-left">

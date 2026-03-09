@@ -1,27 +1,24 @@
 <script setup>
-// SEO Meta - moved to top as per Nuxt convention
+// SEO Meta
 useSeoMeta({
     title: 'Kianmhz – Portfolio of Kian Haddad',
     description: 'Explore the portfolio of Kian Haddad (Kianmhz) — a software developer passionate about automation, clean UI, and innovative web solutions.'
 })
 
-// Template refs - organized by sections
+// Section scroll target refs
 const homeRef = ref()
 const whatIDoRef = ref()
 const projectsRef = ref()
 const contactRef = ref()
 
-// Animation element refs - organized by sections
+// Parallax title element refs
 const leftIntroTitleRef = ref()
 const rightIntroTitleRef = ref()
 const leftIntroSectionTwoTitleRef = ref()
 const rightIntroSectionTwoTitleRef = ref()
-const characterRevealRef = ref()
 
-// VueUse composables for reactive window and scroll tracking
 const { y: scrollY } = useWindowScroll()
 
-// Reactive refs grouped by functionality
 const scrollRefs = computed(() => ({
     home: homeRef,
     whatIDo: whatIDoRef,
@@ -29,42 +26,22 @@ const scrollRefs = computed(() => ({
     contact: contactRef,
 }))
 
-const animationRefs = computed(() => ({
-    leftIntroTitle: leftIntroTitleRef,
-    rightIntroTitle: rightIntroTitleRef,
-    leftIntroSectionTwoTitle: leftIntroSectionTwoTitleRef,
-    rightIntroSectionTwoTitle: rightIntroSectionTwoTitleRef,
-    characterReveal: characterRevealRef
-}))
-
-// Pure animation calculation function using VueUse
-const calculateAnimationRate = (element, startOffset = 0, endOffset = 0, invert = false) => {
+// Calculates a 0–1 progress rate based on how far an element has scrolled into view
+const calculateAnimationRate = (element, startOffset = 0, endOffset = 0) => {
     if (!element?.value || !import.meta.client) return 0
 
     const rect = element.value.getBoundingClientRect()
     const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
     const elementEnd = rect.top + scrollY.value + element.value.offsetHeight + endOffset
     const scrollRange = elementEnd - elementStart
-
     const rate = (scrollY.value - elementStart) / scrollRange
 
-    return invert ? 1 - rate : Math.min(Math.max(rate, 0), 1)
+    return Math.min(Math.max(rate, 0), 1)
 }
 
-// Reactive computed animation rates using VueUse scroll position
-const sectionOneRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.leftIntroTitle)
-)
+const sectionOneRate = computed(() => calculateAnimationRate(leftIntroTitleRef))
+const sectionTwoRate = computed(() => calculateAnimationRate(leftIntroSectionTwoTitleRef))
 
-const sectionTwoRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.leftIntroSectionTwoTitle)
-)
-
-const sectionThreeRate = computed(() =>
-    calculateAnimationRate(animationRefs.value.characterReveal?.containerRef, 0, -200)
-)
-
-// Computed transform styles for smooth animations
 const transformStyles = computed(() => ({
     titleOne: `translateX(-${sectionOneRate.value * 25}%)`,
     titleTwo: `translateX(${sectionOneRate.value * 25}%)`,
@@ -72,15 +49,10 @@ const transformStyles = computed(() => ({
     sectionTwoRight: `translateX(${sectionTwoRate.value * 25}%)`
 }))
 
-// Smooth scroll function with better error handling
 const scrollToSection = (sectionName) => {
     const targetRef = scrollRefs.value[sectionName]
-
     if (targetRef?.value && import.meta.client) {
-        targetRef.value.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        })
+        targetRef.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
 }
 </script>
@@ -179,9 +151,8 @@ const scrollToSection = (sectionName) => {
 
     <Cards />
 
-    <UContainer class="pt-10 pb-10">
-        <CharacterReveal ref="characterRevealRef" :texts="[`And that's a wrap`, `What's next?`, `Stay in touch!`]"
-            :animation-delay="0.05" :scroll-offset="-200" />
+    <UContainer class="py-20">
+        <CharacterReveal :texts="[`And that's a wrap`, `What's next?`, `Stay in touch!`]" />
     </UContainer>
 
     <div ref="contactRef" class="pb-10">

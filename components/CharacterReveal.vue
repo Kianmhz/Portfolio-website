@@ -4,160 +4,79 @@ const props = defineProps({
     type: Array,
     default: () => ["And that's a wrap", "What's next?", "Stay in touch!"],
   },
-  animationDelay: {
+  staggerDelay: {
     type: Number,
-    default: 0.05,
-  },
-  scrollOffset: {
-    type: Number,
-    default: -200,
+    default: 150,
   },
 })
 
 const containerRef = ref()
-const textRefs = ref([])
-const { y: scrollY } = useWindowScroll()
+const lineRefs = ref([])
+const revealed = ref(props.texts.map(() => false))
 
-// Track maximum revealed characters to prevent fade-out on scroll-back
-const maxRevealedChars = ref(props.texts.map(() => 0))
+onMounted(() => {
+  if (!import.meta.client) return
 
-const calculateAnimationRate = (element, startOffset = 0, endOffset = 0) => {
-  if (!element || !import.meta.client) return 0
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        const index = Number(entry.target.dataset.index)
+        // Stagger each line after the previous one
+        setTimeout(() => {
+          revealed.value[index] = true
+        }, index * props.staggerDelay)
+        observer.unobserve(entry.target)
+      })
+    },
+    { threshold: 0.2 }
+  )
 
-  const rect = element.getBoundingClientRect()
-  const elementStart = rect.top + scrollY.value - window.innerHeight + startOffset
-  const elementEnd = rect.top + scrollY.value + element.offsetHeight + endOffset
-  const scrollRange = elementEnd - elementStart
-  const rate = (scrollY.value - elementStart) / scrollRange
+  lineRefs.value.forEach((el) => {
+    if (el) observer.observe(el)
+  })
 
-  return Math.min(Math.max(rate, 0), 1)
-}
-
-const revealedChars = computed(() => {
-  if (!textRefs.value[0]) return props.texts.map(() => 0)
-
-  const totalProgress = calculateAnimationRate(textRefs.value[0], 0, props.scrollOffset)
-  const totalChars = props.texts.reduce((sum, text) => sum + text.length, 0)
-  const totalRevealedChars = Math.floor(totalProgress * totalChars)
-
-  const currentResult = []
-  let remainingChars = totalRevealedChars
-
-  for (let i = 0; i < props.texts.length; i++) {
-    const textLength = props.texts[i].length
-    if (remainingChars <= 0) {
-      currentResult.push(0)
-    } else if (remainingChars >= textLength) {
-      currentResult.push(textLength)
-      remainingChars -= textLength
-    } else {
-      currentResult.push(remainingChars)
-      remainingChars = 0
-    }
-  }
-
-  // Never go backwards — lock revealed characters at their maximum
-  for (let i = 0; i < currentResult.length; i++) {
-    if (currentResult[i] > maxRevealedChars.value[i]) {
-      maxRevealedChars.value[i] = currentResult[i]
-    }
-  }
-
-  return maxRevealedChars.value
+  onBeforeUnmount(() => observer.disconnect())
 })
 
-defineExpose({ containerRef, textRefs })
+defineExpose({ containerRef })
 </script>
 
 <template>
   <div
     ref="containerRef"
-    class="character-reveal text-4xl md:text-6xl lg:text-8xl font-bold text-transparent text-center sm:text-left will-change-transform whitespace-nowrap"
+    class="text-4xl md:text-6xl lg:text-8xl font-bold text-center sm:text-left"
   >
     <p
-      v-for="(text, textIndex) in texts"
-      :key="`text-${textIndex}`"
-      :ref="(el) => (textRefs[textIndex] = el)"
-      class="reveal-text"
-    >
-      <span class="revealed-chars">
-        <span
-          v-for="(char, charIndex) in text.slice(0, revealedChars[textIndex])"
-          :key="`${textIndex}-${charIndex}`"
-          class="char-animate"
-          :style="{ animationDelay: `${charIndex * animationDelay}s` }"
-        >{{ char === ' ' ? '\u00A0' : char }}</span>
-      </span>
-      <span class="hidden-chars">{{ text.slice(revealedChars[textIndex]) }}</span>
-    </p>
+      v-for="(text, index) in texts"
+      :key="index"
+      :ref="(el) => (lineRefs[index] = el)"
+      :data-index="index"
+      class="reveal-line"
+      :class="{ 'is-revealed': revealed[index] }"
+    >{{ text }}</p>
   </div>
 </template>
 
 <style scoped>
-.character-reveal {
-  position: relative;
-}
-
-.reveal-text {
-  position: relative;
+.reveal-line {
   display: block;
-  overflow: hidden;
-  line-height: 1.625;
-  color: var(--main-color);
-  transition: all 0.1s ease-out;
-}
-
-.revealed-chars {
-  position: relative;
-}
-
-.hidden-chars {
-  color: transparent;
-  background: transparent;
-  position: relative;
-}
-
-.char-animate {
-  display: inline-block;
   opacity: 0;
-  color: var(--main-color);
-  animation: charColorIn 0.6s ease-out forwards;
+  transform: translateY(2rem);
+  background: var(--gradient-color);
+  background-size: var(--gradient-background-size);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: var(--gradient-animation);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes charColorIn {
-  0% {
-    opacity: 0;
-    color: transparent;
-    transform: translateY(20px) scale(0.8);
-    filter: blur(2px);
-  }
-
-  25% {
-    opacity: 0.3;
-    color: var(--tertiary-color);
-    transform: translateY(15px) scale(0.85);
-    filter: blur(1.5px);
-  }
-
-  50% {
-    opacity: 0.6;
-    color: var(--secondary-color);
-    transform: translateY(10px) scale(0.9);
-    filter: blur(1px);
-  }
-
-  75% {
-    opacity: 0.8;
-    color: var(--quaternary-color);
-    transform: translateY(5px) scale(0.95);
-    filter: blur(0.5px);
-  }
-
-  100% {
-    opacity: 1;
-    color: var(--main-color);
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
+.reveal-line.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
