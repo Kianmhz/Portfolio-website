@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
         :class="{ 'hovered': hoveredSkill === skill.id }">
         <Icon :icon="skill.icon" class="text-4xl" />
         <h2 class="text-lg sm:text-xl font-bold my-2.5">{{ skill.title }}</h2>
-        <p class="text-md sm:text-lg text-[--secondary-text-color]">{{ skill.content }}</p>
+        <p class="text-base sm:text-lg text-[--secondary-text-color]">{{ skill.content }}</p>
       </div>
     </div>
   </div>

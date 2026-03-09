@@ -8,7 +8,7 @@ const cards = ref([
 
 <template>
   <UContainer>
-    <div class="flex flex-col justify-center items-center overflow-hidden max-sm:hidden lg:overflow-visible">
+    <div class="flex flex-col justify-center items-center overflow-hidden pb-10 max-sm:hidden lg:overflow-visible">
       <div class="flex relative w-full sm:w-3/4 sm:h-80 lg:h-96">
         <div v-for="card in cards" :key="card.id" class="resume-card" :id="'card' + card.id">
           <p class="text-2xl leading-normal">{{ card.content }}</p>

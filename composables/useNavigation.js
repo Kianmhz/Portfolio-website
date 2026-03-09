@@ -1,8 +1,5 @@
 /**
- * Navigation composable for scroll detection and navbar behavior
- */
-/**
- * Navigation composable for scroll detection and navbar behavior using VueUse
+ * Navigation composable for scroll detection and navbar behaviour using VueUse.
  */
 export function useNavigation() {
   const SCROLL_THRESHOLD = 100
@@ -11,10 +8,8 @@ export function useNavigation() {
   const isScrollingUp = ref(true)
   const loaded = ref(false)
 
-  // Use VueUse reactive scroll position
   const { y: scrollY } = useWindowScroll()
 
-  // Watch scroll position changes reactively
   watch(scrollY, (currentScrollPosition) => {
     if (!import.meta.client) return
 
@@ -31,15 +26,6 @@ export function useNavigation() {
     }
   })
 
-  // No longer need manual event listeners - VueUse handles this
-  const setupScrollListener = () => {
-    // VueUse handles scroll tracking automatically
-  }
-
-  const cleanupScrollListener = () => {
-    // VueUse handles cleanup automatically
-  }
-
   const setLoaded = (delay = 2000) => {
     setTimeout(() => {
       loaded.value = true
@@ -49,8 +35,6 @@ export function useNavigation() {
   return {
     isScrollingUp,
     loaded,
-    setupScrollListener,
-    cleanupScrollListener,
-    setLoaded
+    setLoaded,
   }
 }

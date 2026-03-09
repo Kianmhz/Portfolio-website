@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .author-name {
   animation: var(--gradient-animation);
   background: var(--gradient-color);

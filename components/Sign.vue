@@ -1,9 +1,13 @@
 <template>
-  <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="707.000000pt" height="353.000000pt"
-    viewBox="0 0 707.000000 353.000000" preserveAspectRatio="xMidYMid meet">
-
-    <g transform="translate(0.000000,353.000000) scale(0.100000,-0.100000)" fill="#fff" stroke="none">
-      <path class="svg" d="M6575 3418 c-189 -19 -1178 -250 -1647 -384 -438 -125 -1594 -504
+  <svg
+    version="1.0"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 707 353"
+    preserveAspectRatio="xMidYMid meet"
+    class="sign-svg"
+  >
+    <g transform="translate(0,353) scale(0.1,-0.1)" fill="#fff" stroke="none">
+      <path class="svg-path" d="M6575 3418 c-189 -19 -1178 -250 -1647 -384 -438 -125 -1594 -504
 -1889 -619 -79 -31 -152 -55 -164 -53 -26 4 -24 30 16 308 16 113 33 249 36
 303 6 93 5 97 -14 97 -28 0 -56 -40 -145 -201 -105 -188 -183 -312 -224 -356
 -35 -37 -36 -37 -50 -18 -18 24 -11 60 17 95 10 14 25 35 31 48 24 48 -31 75
@@ -32,11 +36,12 @@
 </template>
 
 <style scoped>
-.sign {
-  @apply w-auto h-12;
+.sign-svg {
+  width: auto;
+  height: 3rem;
 }
 
-.sign:hover .svg {
+.sign-svg:hover .svg-path {
   fill: var(--main-color);
 }
 </style>

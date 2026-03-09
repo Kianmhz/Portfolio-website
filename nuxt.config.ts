@@ -5,8 +5,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   image: {
     cloudflare: {
-      baseURL: 'https://kianmhz.me' // Replace with your domain
-    }
+      baseURL: 'https://kianmhz.me',
+    },
   },
   fonts: {
     families: [
@@ -35,8 +35,7 @@ export default defineNuxtConfig({
       link: [
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         { rel: "canonical", href: "https://kianmhz.me" },
-
-          // Favicons
+        // Favicons
         { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16x16.png" },
         { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32x32.png" },
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },

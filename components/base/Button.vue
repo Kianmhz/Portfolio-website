@@ -1,3 +1,22 @@
+<script setup>
+import { Icon } from '@iconify/vue'
+
+defineProps({
+  link: {
+    type: String,
+    default: '',
+  },
+  icon: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <button>
     <template v-if="link">
@@ -18,26 +37,6 @@
     </template>
   </button>
 </template>
-
-<script setup>
-import { Icon } from '@iconify/vue'
-
-const props = defineProps({
-  link: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  icon: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-})
-</script>
 
 <style scoped>
 .contact-button {

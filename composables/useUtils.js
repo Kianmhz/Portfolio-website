@@ -1,10 +1,10 @@
 /**
- * Utility composable with common helper functions
+ * Utility composable with common helper functions.
  */
 export function useUtils() {
   /**
-     * Throttle function execution
-     */
+   * Throttle function execution.
+   */
   const throttle = (func, delay) => {
     let timeoutId
     let lastExecTime = 0
@@ -26,8 +26,8 @@ export function useUtils() {
   }
 
   /**
-     * Debounce function execution
-     */
+   * Debounce function execution.
+   */
   const debounce = (func, delay) => {
     let timeoutId
 
@@ -38,15 +38,15 @@ export function useUtils() {
   }
 
   /**
-     * Clamp a value between min and max
-     */
+   * Clamp a value between min and max.
+   */
   const clamp = (value, min, max) => {
     return Math.min(Math.max(value, min), max)
   }
 
   /**
-     * Linear interpolation between two values
-     */
+   * Linear interpolation between two values.
+   */
   const lerp = (start, end, factor) => {
     return start + (end - start) * factor
   }
@@ -55,6 +55,6 @@ export function useUtils() {
     throttle,
     debounce,
     clamp,
-    lerp
+    lerp,
   }
 }

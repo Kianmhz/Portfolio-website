@@ -1,25 +1,19 @@
 <script setup>
-const props = defineProps({
+defineProps({
   scroll: {
     type: Object,
-    required: true
+    required: true,
   },
   scrollTo: {
     type: Function,
-    required: true
-  }
+    required: true,
+  },
 })
 
-// Use navigation composable
-const { isScrollingUp, loaded, setupScrollListener, cleanupScrollListener, setLoaded } = useNavigation()
+const { isScrollingUp, loaded, setLoaded } = useNavigation()
 
 onMounted(() => {
-  setupScrollListener()
   setLoaded()
-})
-
-onBeforeUnmount(() => {
-  cleanupScrollListener()
 })
 </script>
 
@@ -31,7 +25,7 @@ onBeforeUnmount(() => {
         <div class="flex justify-between items-center h-16" :class="{ 'no-slide': loaded }">
           <button @click="scrollTo('home')" class="nav slide-in" aria-label="Go to Homepage" type="button">
             <div class="flex justify-center items-center w-full">
-              <Sign class="sign" />
+              <Sign />
             </div>
           </button>
           <button @click="scrollTo('whatIDo')" class="nav slide-in delay-1" type="button">
