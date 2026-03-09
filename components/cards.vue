@@ -1,8 +1,8 @@
 <script setup>
 const cards = ref([
-  { id: 3, title: 'Python Certification', src: '/img/python.jpg', content: 'Certified in Python, I possess a strong foundation in scripting and backend development, showcasing my dedication to continuous learning in this versatile language.' },
-  { id: 2, title: 'C++ Certification', src: '/img/CPP.jpg', content: 'A reflection to my proficiency in C++, this certification validates my skills in object-oriented programming and data structures.' },
-  { id: 1, title: 'Professional Resume', src: '/Resume.pdf', content: 'A blend of foundational knowledge and hands-on projects, showcasing my dedication to software engineering.' }
+  { id: 3, title: 'Software Engineering', content: 'I approach software engineering through experimentation and system design, combining strong fundamentals with hands-on projects to build efficient and scalable solutions.' },
+  { id: 2, title: 'Wouessi - Software Developer Intern', content: 'Built backend services and APIs using Node.js and MongoDB, enabling reliable communication between frontend applications and scalable backend systems.' },
+  { id: 1, title: 'Ottawa Derm Centre - Mobile App Developer', content: 'Developed cross-platform mobile applications with Flutter, integrating real-time rendering, camera pipelines, and responsive UI systems for production environments.' }
 ])
 </script>
 
@@ -12,7 +12,7 @@ const cards = ref([
       <div class="flex relative w-full sm:w-3/4 sm:h-80 lg:h-96">
         <div v-for="card in cards" :key="card.id" class="resume-card" :id="'card' + card.id">
           <p class="text-2xl leading-normal">{{ card.content }}</p>
-          <NuxtLink :to="card.src" external target="_blank" class="title">{{ card.title }}</NuxtLink>
+          <span class="title">{{ card.title }}</span>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@ const cards = ref([
 <style scoped>
 /* Card-specific styles for positioning and hover effect */
 .title {
-  @apply absolute animate-pulse bottom-14 text-[--secondary-text-color] text-2xl transition-colors duration-300 ease-in-out;
+  @apply absolute bottom-14 text-[--secondary-text-color] text-2xl transition-colors duration-300 ease-in-out;
 }
 
 /* Use more specific selectors for hover effects */
