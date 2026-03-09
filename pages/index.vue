@@ -97,9 +97,9 @@ const scrollToSection = (sectionName) => {
                 </h2>
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150" data-aos-easing="ease-in-out"
                     data-aos-once="true">
-                    <h1 class="text-6xl md:text-7xl lg:text-8xl py-5 font-bold ">Kianmehr<span
+                    <h1 class="text-6xl md:text-7xl lg:text-8xl py-5 font-bold">Kianmehr<span
                             class="intro-dot">.</span></h1>
-                    <p class="text-md sm:text-lg text-[--secondary-text-color]">
+                    <p class="text-base sm:text-lg text-[--secondary-text-color]">
                         A dedicated Software Developer driven by creativity, innovation and a continuous quest for
                         proficiency. Every
                         project I pursue is a journey of exploration, dedication, and a drive for excellence.
@@ -134,13 +134,13 @@ const scrollToSection = (sectionName) => {
         </UContainer>
     </div>
 
-    <UContainer>
-        <div class="flex flex-col justify-center items-center gap-32">
+    <UContainer class="py-20 lg:py-24">
+        <div class="flex flex-col justify-center items-center gap-16">
             <div class="grid grid-cols-1 text-center gap-y-12 lg:grid-cols-2 lg:gap-x-14 sm:text-left">
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-once="true"
                     class="flex flex-col justify-center">
-                    <h1 class="text-3xl sm:text-4xl mb-4 font-bold">What I Do</h1>
-                    <p class="text-md sm:text-lg text-[--secondary-text-color]">
+                    <h2 class="text-3xl sm:text-4xl mb-4 font-bold">What I Do</h2>
+                    <p class="text-base sm:text-lg text-[--secondary-text-color]">
                         I build intelligent software systems that combine modern web development with machine learning
                         and automation.
                         My work ranges from full-stack applications and mobile experiences to experimental AI systems
@@ -179,12 +179,12 @@ const scrollToSection = (sectionName) => {
 
     <Cards />
 
-    <UContainer>
+    <UContainer class="pt-10 pb-10">
         <CharacterReveal ref="characterRevealRef" :texts="[`And that's a wrap`, `What's next?`, `Stay in touch!`]"
             :animation-delay="0.05" :scroll-offset="-200" />
     </UContainer>
 
-    <div ref="contactRef">
+    <div ref="contactRef" class="pb-10">
         <Contact />
     </div>
 </template>
