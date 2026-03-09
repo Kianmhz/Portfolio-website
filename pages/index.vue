@@ -134,7 +134,7 @@ const scrollToSection = (sectionName) => {
         </UContainer>
     </div>
 
-    <UContainer class="py-20 lg:py-24">
+    <UContainer class="py-20">
         <div class="flex flex-col justify-center items-center gap-16">
             <div class="grid grid-cols-1 text-center gap-y-12 lg:grid-cols-2 lg:gap-x-14 sm:text-left">
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-once="true"
